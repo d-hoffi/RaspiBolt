@@ -160,5 +160,6 @@ Now that c-lightning is installed, we need to configure it to work with Bitcoin 
 As "admin" user, we first add him to "cl" group and than start c-lightning manually to check if everything works fine.
 
 ```sh
+$ sudo adduser admin cl
 $ lightningd --conf=/data/lightningd/config
 ```
