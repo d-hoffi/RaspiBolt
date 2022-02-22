@@ -22,13 +22,13 @@ We set up [c-lightning](https://github.com/ElementsProject/lightning#readme){:ta
 
 ## Installation
 
-The installation of c-lightning is straight-forward, but the application is quite powerful and capable of things not explained here. Check out their [GitHub repository](https://github.com/ElementsProject/){:target="_blank"} for a wealth of information about their open-source project and Lightning in general.
+The installation of c-lightning is straight-forward, but the application is quite powerful and capable of things not explained here. Check out their [GitHub repository](https://github.com/ElementsProject/lightning){:target="_blank"} for a wealth of information about their open-source project and Lightning in general.
 
 ### Download
 
-We'll download, verify and install c-lightning.
+We'll download, verify and install c-lightning. For the instructions the "admin" user is used.
 
-* As user "admin", download the application, checksums and signature
+* Download the application, checksums and signature
   
   ```sh
   $ cd /tmp
@@ -39,40 +39,75 @@ We'll download, verify and install c-lightning.
   
 * Get the PGP key from [Christian Decker](https://github.com/cdecker) to verify the signature
 
-```sh
-$ wget -O https://raw.githubusercontent.com/ElementsProject/lightning/master/contrib/keys/cdecker.txt
-$ gpg --import --import-options show-only ./pgp_keys.asc
-```
+  ```sh
+  $ curl https://raw.githubusercontent.com/ElementsProject/lightning/master/contrib/keys/cdecker.txt | gpg --import
+  > ...
+  > gpg: key A26D6D9FE088ED58: 32 signatures not checked due to missing keys
+  > gpg: key A26D6D9FE088ED58: "Christian Decker <decker.christian@gmail.com>" not changed
+  > ...
+  ```
 
 * Verify the signature
 
   ```sh
   $ gpg --verify SHA256SUMS.asc
+  > gpg: Signature made Wed Nov  3 19:02:02 2021 CET
+  > gpg:                using RSA key B7C4BE81184FC203D52C35C51416D83DC4F0E86D
+  > gpg: Good signature from "Christian Decker <decker.christian@gmail.com>" [unknown]
+  > gpg:                 aka "Christian Decker <decker@blockstream.com>" [unknown]
+  > gpg: WARNING: This key is not certified with a trusted signature!
+  > gpg:          There is no indication that the signature belongs to the owner.
+  > Primary key fingerprint: B731 AAC5 21B0 1385 9313  F674 A26D 6D9F E088 ED58
   ```
 
 * Verify the checksum for the application
 
   ```sh
-  $ sha256sum --check SHASUMS
+  $ sha256sum --check SHA256SUMS
+  > ...
+  > clightning-v0.10.2.zip: OK
+  > ...
   ```
   
+* For some dependencies Python and pip3 are required. Python should already be installed. Check your Python version
+
+  ```
+  $ python --version
+  > Python 3.9.2
+  ```
+
+ * Install pip3 and check its version
+
+  ```
+  $ sudo apt update
+  $ sudo apt install python3-pip
+  $ pip3 --version
+  > pip 20.3.4 from /usr/lib/python3/dist-packages/pip (python 3.9)
+  ```
+
+* Unzip c-lightning
+
+  ```sh
+  $ unzip clightning-v0.10.2.zip
+  ```
+
 * Install dependencies
-  
+
   ```sh
   $ sudo apt-get install -y \
       autoconf automake build-essential git libtool libgmp-dev \
       libsqlite3-dev python3 python3-mako net-tools zlib1g-dev libsodium-dev \
       gettext unzip
+  $ sudo apt-get install -y postgresql libpq-dev
   $ sudo pip3 install mrkd==0.2.0
   $ sudo pip3 install mistune==0.8.4
+  $ sudo pip3 install -r clightning-v0.10.2/requirements.txt
+  > ERROR: Invalid requirement: './contrib/pyln-client' (from line 7 of clightning-v0.10.2/requirements.txt)
+  > Hint: It looks like a path. File './contrib/pyln-client' does not exist.
   ```
-  
-* Unzip c-lightning
+stuck here at blockheight 724446
+________________________________________________________________________________________________________________
 
-  ```sh
-  $ unzip c-lightning-v0.10.2.zip
-  ```
-  
 * Configuring EXPERIMENTAL_FEATURES enabled
 
   ```sh
