@@ -26,15 +26,23 @@ The installation of c-lightning is straight-forward, but the application is quit
 
 ### Download
 
-We'll download, verify and install c-lightning. For the instructions the "admin" user is used.
+We'll clone and verify c-lightning from source and install all requirements.
+The application should run in a new, seperated user for security reasons.
 
-* Download the application, checksums and signature
+* Login as "admin" user, create the "cl" service user and add it to the groups "bitcoin" and "debian-tor"
+
+  ```sh
+  $ sudo adduser --disabled-password --gecos "" cl
+  $ sudo usermod -a -G bitcoin,debian-tor cl
+  ```
+
+* Switch to the "cl" user. Download and verify the source from GitHub.
   
   ```sh
-  $ cd /tmp
-  $ wget https://github.com/ElementsProject/lightning/releases/download/v0.10.2/clightning-v0.10.2.zip
-  $ wget https://github.com/ElementsProject/lightning/releases/download/v0.10.2/SHA256SUMS.asc
-  $ wget https://github.com/ElementsProject/lightning/releases/download/v0.10.2/SHA256SUMS
+  $ sudo su - cl
+  $ git clone https://github.com/ElementsProject/lightning.git
+  $ cd lightning
+  $ git reset --hard v0.10.2
   ```
   
 * Get the PGP key from [Christian Decker](https://github.com/cdecker) to verify the signature
@@ -42,13 +50,14 @@ We'll download, verify and install c-lightning. For the instructions the "admin"
   ```sh
   $ curl https://raw.githubusercontent.com/ElementsProject/lightning/master/contrib/keys/cdecker.txt | gpg --import
   > ...
-  > gpg: key A26D6D9FE088ED58: 32 signatures not checked due to missing keys
-  > gpg: key A26D6D9FE088ED58: "Christian Decker <decker.christian@gmail.com>" not changed
+  > gpg: key A26D6D9FE088ED58: 51 signatures not checked due to missing keys
+  > gpg: key A26D6D9FE088ED58: public key "Christian Decker <decker.christian@gmail.com>" imported
   > ...
   ```
 
 * Verify the signature
-
+work in progress...
+___________________________________________________________
   ```sh
   $ gpg --verify SHA256SUMS.asc
   > gpg: Signature made Wed Nov  3 19:02:02 2021 CET
