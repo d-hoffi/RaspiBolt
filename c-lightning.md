@@ -56,66 +56,39 @@ The application should run in a new, seperated user for security reasons.
   ```
 
 * Verify the signature
-work in progress...
-___________________________________________________________
-  ```sh
-  $ gpg --verify SHA256SUMS.asc
-  > gpg: Signature made Wed Nov  3 19:02:02 2021 CET
-  > gpg:                using RSA key B7C4BE81184FC203D52C35C51416D83DC4F0E86D
-  > gpg: Good signature from "Christian Decker <decker.christian@gmail.com>" [unknown]
-  > gpg:                 aka "Christian Decker <decker@blockstream.com>" [unknown]
-  > gpg: WARNING: This key is not certified with a trusted signature!
-  > gpg:          There is no indication that the signature belongs to the owner.
-  > Primary key fingerprint: B731 AAC5 21B0 1385 9313  F674 A26D 6D9F E088 ED58
+  
   ```
-
-* Verify the checksum for the application
-
-  ```sh
-  $ sha256sum --check SHA256SUMS
-  > ...
-  > clightning-v0.10.2.zip: OK
-  > ...
+  work in progress...
+  for now I assume all signatures are right
   ```
   
-* For some dependencies Python and pip3 are required. Python should already be installed. Check your Python version
-
+* Exit the "cl" user session back to "admin".
+  Install the following dependencies
+  
   ```
-  $ python --version
-  > Python 3.9.2
-  ```
-
- * Install pip3 and check its version
-
-  ```
-  $ sudo apt update
-  $ sudo apt install python3-pip
-  $ pip3 --version
-  > pip 20.3.4 from /usr/lib/python3/dist-packages/pip (python 3.9)
-  ```
-
-* Unzip c-lightning
-
-  ```sh
-  $ unzip clightning-v0.10.2.zip
-  ```
-
-* Install dependencies
-
-  ```sh
+  $ exit
   $ sudo apt-get install -y \
-      autoconf automake build-essential git libtool libgmp-dev \
-      libsqlite3-dev python3 python3-mako net-tools zlib1g-dev libsodium-dev \
-      gettext unzip
+    autoconf automake build-essential git libtool libgmp-dev \
+    libsqlite3-dev python3 python3-mako net-tools zlib1g-dev libsodium-dev \
+    gettext
   $ sudo apt-get install -y postgresql libpq-dev
   $ sudo pip3 install mrkd==0.2.0
   $ sudo pip3 install mistune==0.8.4
-  $ sudo pip3 install -r clightning-v0.10.2/requirements.txt
-  > ERROR: Invalid requirement: './contrib/pyln-client' (from line 7 of clightning-v0.10.2/requirements.txt)
+  ```
+  
+* Some dependencies are also required for our "cl" user.
+  Install the following dependencies for him
+
+  ```
+  $ sudo -u cl pip3 install --user mrkd==0.2.0
+  $ sudo -u cl pip3 install --user mistune==0.8.4
+  $ sudo -u cl pip3 install --user -r /home/cl/lightning/requirements.txt
+  > ERROR: Invalid requirement: './contrib/pyln-client' (from line 7 of /home/cl/lightning/requirements.txt)
   > Hint: It looks like a path. File './contrib/pyln-client' does not exist.
   ```
-stuck here at blockheight 724446
-________________________________________________________________________________________________________________
+  
+___________________________________________________________
+  
 
 * Configuring EXPERIMENTAL_FEATURES enabled
 
