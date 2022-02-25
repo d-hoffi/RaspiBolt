@@ -57,7 +57,7 @@ The application should run in a new, seperated user for security reasons.
 
 * Verify the signature
   
-  ```
+  ```sh
   work in progress...
   for now I assume all signatures are right
   ```
@@ -65,7 +65,7 @@ The application should run in a new, seperated user for security reasons.
 * Exit the "cl" user session back to "admin".
   Install the following dependencies
   
-  ```
+  ```sh
   $ exit
   $ sudo apt-get install -y \
     autoconf automake build-essential git libtool libgmp-dev \
@@ -79,68 +79,25 @@ The application should run in a new, seperated user for security reasons.
 * Some dependencies are also required for our "cl" user.
   Install the following dependencies for him
 
-  ```
+  ```sh
   $ sudo -u cl pip3 install --user mrkd==0.2.0
   $ sudo -u cl pip3 install --user mistune==0.8.4
   $ cd /home/cl/lightning
   $ sudo git reset --hard v0.10.2
-  $ sudo -u cl pip3 install --user -r requirements.txt
+  $ sudo -u cl pip3 install --user -r requirements.lock
   ```
-  
-Here I got an error:
-```
-Looking in indexes: https://pypi.org/simple, https://www.piwheels.org/simple
-Processing ./contrib/pyln-client
-    ERROR: Command errored out with exit status 1:
-     command: /usr/bin/python3 -c 'import sys, setuptools, tokenize; sys.argv[0] = '"'"'/tmp/pip-req-build-4azvkts1/setup.py'"'"'; __file__='"'"'/tmp/pip-req-build-4azvkts1/setup.py'"'"';f=getattr(tokenize, '"'"'open'"'"', open)(__file__);code=f.read().replace('"'"'\r\n'"'"', '"'"'\n'"'"');f.close();exec(compile(code, __file__, '"'"'exec'"'"'))' egg_info --egg-base /tmp/pip-pip-egg-info-smeutsrm
-         cwd: /tmp/pip-req-build-4azvkts1/
-    Complete output (27 lines):
-    Traceback (most recent call last):
-      File "<string>", line 1, in <module>
-      File "/tmp/pip-req-build-4azvkts1/setup.py", line 12, in <module>
-        setup(name='pyln-client',
-      File "/usr/lib/python3/dist-packages/setuptools/__init__.py", line 153, in setup
-        return distutils.core.setup(**attrs)
-      File "/usr/lib/python3.9/distutils/core.py", line 108, in setup
-        _setup_distribution = dist = klass(attrs)
-      File "/usr/lib/python3/dist-packages/setuptools/dist.py", line 432, in __init__
-        _Distribution.__init__(self, {
-      File "/usr/lib/python3.9/distutils/dist.py", line 292, in __init__
-        self.finalize_options()
-      File "/usr/lib/python3/dist-packages/setuptools/dist.py", line 708, in finalize_options
-        ep(self)
-      File "/usr/lib/python3/dist-packages/setuptools/dist.py", line 715, in _finalize_setup_keywords
-        ep.load()(self, ep.name, value)
-      File "/tmp/pip-req-build-4azvkts1/.eggs/setuptools_scm-6.4.2-py3.9.egg/setuptools_scm/integration.py", line 75, in version_keyword
-        _assign_version(dist, config)
-      File "/tmp/pip-req-build-4azvkts1/.eggs/setuptools_scm-6.4.2-py3.9.egg/setuptools_scm/integration.py", line 51, in _assign_version
-        _version_missing(config)
-      File "/tmp/pip-req-build-4azvkts1/.eggs/setuptools_scm-6.4.2-py3.9.egg/setuptools_scm/__init__.py", line 106, in _version_missing
-        raise LookupError(
-    LookupError: setuptools-scm was unable to detect version for /.
-    
-    Make sure you're either building from a fully intact git repository or PyPI tarballs. Most other sources (such as GitHub's tarballs, a git checkout without the .git folder) don't contain the necessary metadata and will not work.
-    
-    For example, if you're using pip, instead of https://github.com/user/proj/archive/master.zip use git+https://github.com/user/proj.git#egg=proj
-    ----------------------------------------
-WARNING: Discarding file:///home/cl/lightning/contrib/pyln-client. Command errored out with exit status 1: python setup.py egg_info Check the logs for full command output.
-ERROR: Command errored out with exit status 1: python setup.py egg_info Check the logs for full command output.
 
-```
-  
-___________________________________________________________
-  
-
-* Configuring EXPERIMENTAL_FEATURES enabled
+* Configuring "EXPERIMENTAL_FEATURES" enabled
 
   ```sh
-  $ sudo ./configure --enable-experimental-features
+  $ sudo -u cl ./configure --enable-experimental-features
   ```
   
-* Building C-lightning from source and install to /usr/local/bin
+* Building C-lightning from source and install to /usr/local/bin.
+  Be patient, that can take some time
 
   ```sh
-  $ sudo make
+  $ sudo -u cl make
   $ sudo make install
   ```
 
