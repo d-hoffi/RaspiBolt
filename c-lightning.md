@@ -103,7 +103,7 @@ The application should run in a new, seperated user for security reasons.
 
 * Check the version
 
-  ```
+  ```sh
   $ lightning-cli --version
   > v0.10.2
   ```
@@ -111,19 +111,14 @@ The application should run in a new, seperated user for security reasons.
 ### Data directory
 
 Now that c-lightning is installed, we need to configure it to work with Bitcoin Core and run automatically on startup.
-
-* Create the "cl" service user, and add it to the groups "bitcoin" and "debian-tor"
-
-  ```sh
-  $ sudo adduser --disabled-password --gecos "" cl
-  $ sudo usermod -a -G bitcoin,debian-tor cl
-  ```
   
-* Create the lightningd data directory
+* As "admin" user, move the "/home/cl/lightning" directory into "/data/". 
+  This created a new directory called "/data/lightning".
+  Set the "cl" user as owner of this directory
 
   ```sh
-  $ sudo mkdir /data/lightningd
-  $ sudo chown -R cl:cl /data/lightningd
+  $ mv /home/cl/lightning/ /data/
+  $ sudo chown -R cl:cl /data/lightning
   ```
   
 * Open a "cl" user session
@@ -132,10 +127,10 @@ Now that c-lightning is installed, we need to configure it to work with Bitcoin 
   $ sudo su - cl
   ```
   
-* Create symbolic links pointing to the lightningd and bitcoin data directories
+* Create symbolic links pointing to the lightning and bitcoin data directories
 
   ```sh
-  $ ln -s /data/lightningd /home/cl/.lightningd
+  $ ln -s /data/lightning /home/cl/.lightning
   $ ln -s /data/bitcoin /home/cl/.bitcoin
   ```
   
