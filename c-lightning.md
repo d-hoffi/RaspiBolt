@@ -121,6 +121,12 @@ Now that c-lightning is installed, we need to configure it to work with Bitcoin 
   $ sudo mv /home/cl/lightning/ /data/
   $ sudo chown -R cl:cl /data/lightning
   ```
+
+* Create a symbolic link, which points from your admin home directory into the lightning directory
+  
+  ```sh
+  $ sudo ln -s /data/lightning /home/admin/.lightning
+  ```
   
 * Open a "cl" user session
 
