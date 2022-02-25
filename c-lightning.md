@@ -118,7 +118,7 @@ Now that c-lightning is installed, we need to configure it to work with Bitcoin 
   Set the "cl" user as owner of this directory
 
   ```sh
-  $ mv /home/cl/lightning/ /data/
+  $ sudo mv /home/cl/lightning/ /data/
   $ sudo chown -R cl:cl /data/lightning
   ```
   
