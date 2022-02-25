@@ -108,6 +108,7 @@ The application should run in a new, seperated user for security reasons.
   > v0.10.2
   ```
   
+  
 ### Data directory
 
 Now that c-lightning is installed, we need to configure it to work with Bitcoin Core and run automatically on startup.
@@ -140,17 +141,18 @@ Now that c-lightning is installed, we need to configure it to work with Bitcoin 
   $ ls -la
   ```
   
+  
 ### Configuration
 
-* Create the c-lightning configuration file and paste the following content.
+* Still as "cl" user, create the c-lightning configuration file and paste the following content.
   Save and exit.
 
   ```sh
-  $ nano /data/lightningd/config
+  $ nano /data/lightning/config
   ```
   ```sh
   # RaspiBolt: c-lightning configuration
-  # /data/lightningd/config
+  # /data/lightning/config
 
   network=bitcoin
   log-file=cl.log
@@ -171,5 +173,5 @@ As "admin" user, we first add him to "cl" group and than start c-lightning manua
 
 ```sh
 $ sudo adduser admin cl
-$ lightningd --conf=/data/lightningd/config
+$ lightningd --conf=/data/lightning/config
 ```
