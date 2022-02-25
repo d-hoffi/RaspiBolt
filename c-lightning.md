@@ -114,7 +114,7 @@ The application should run in a new, seperated user for security reasons.
 Now that c-lightning is installed, we need to configure it to work with Bitcoin Core and run automatically on startup.
   
 * As "admin" user, move the "/home/cl/lightning" directory into "/data/". 
-  This created a new directory called "/data/lightning".
+  This creates a new directory called "/data/lightning".
   Set the "cl" user as owner of this directory
 
   ```sh
