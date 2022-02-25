@@ -182,4 +182,6 @@ Now that c-lightning is installed, we need to configure it to work with Bitcoin 
   $ sudo adduser admin cl
   $ sudo su - cl
   $ lightningd --conf=/data/lightning/config
+  > The 'blocksonly' mode of bitcoind, or any option deactivating transaction relay is not supported.
+  > The Bitcoin backend died.
   ```
