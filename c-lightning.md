@@ -176,7 +176,7 @@ Now that c-lightning is installed, we need to configure it to work with Bitcoin 
 ## Run c-lightning
 
 As "admin" user, we first add him to "cl" group to give him read-only access to certain files.
-Than start c-lightning manually to check if everything works fine.
+Than start a new "cl" user session and start c-lightning manually to check if everything works fine.
 
 ```sh
 $ sudo adduser admin cl
