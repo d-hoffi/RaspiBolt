@@ -183,3 +183,5 @@ Now that c-lightning is installed, we need to configure it to work with Bitcoin 
   $ sudo su - cl
   $ lightningd --conf=/data/lightning/config
   ```
+
+If no error is thrown c-lightning is usable now and you are good to go.
